@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BucketList - Wish Details{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Details du wish {{ wish.id }}</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ wish.id }}</td>
+                </tr>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ wish.title }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ wish.description }}</td>
+                </tr>
+                <tr>
+                    <th>Is published</th>
+                    <td>{{ wish.isPublished ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Created at</th>
+                    <td>{{ wish.dateCreated ? wish.dateCreated|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Author</th>
+                    <td>{{ wish.author }}</td>
+                </tr>
+                {% if wish.backdrop != null %}
+                    <tr>
+                        <th>Image</th>
+                        <td><img src="{{ asset('uploads/backdrops/' ~ wish.backdrop) }}" alt="{{ wish.title }}" class="img-fluid"></td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Category</th>
+                    <td>{{ wish.category.name }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+        {% if wish.backdrop != null %}
+            {# Button to delete backdrop #}
+            <a href="{{ path('app_wish_deleteBackdrop', {'id': wish.id}) }}" class="btn btn-danger">Supprimer l'image</a>
+        {% endif %}
+
+
+
+    </div>
+{% endblock %}
